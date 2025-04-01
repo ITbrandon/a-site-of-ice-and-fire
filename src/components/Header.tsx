@@ -13,7 +13,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
 const navigation = [
     { name: 'Characters', href: '/characters' },
-    { name: 'Houses', href: '/houses/67ddbbde4abf8fa1a53c369d' },
+    { name: 'Houses', href: '/houses' },
     { name: 'About', href: '/about' },
   ]
 
