@@ -48,7 +48,7 @@ function filterCharacters(event: React.ChangeEvent<HTMLInputElement>) {
               <h3 className="mt-4 text-sm text-gray-700">{char.family}</h3>
               <p className="mt-1 text-lg font-medium text-gray-900">{char.fullName}</p>
             </Link>
-          )) : <h1>No Characters Match Your Search</h1>}
+          )) : <h1 className="mt-4 text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl text-center">No Characters Match Your Search</h1>}
         </div>
       </div>
     </div>
