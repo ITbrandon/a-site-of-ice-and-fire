@@ -74,7 +74,7 @@ export async function subscribe(email:string) {
   });
 
   if (!response.ok) {
-    throw new Error('Already Subscribed');
+    throw new Error('Failed to Subscribe to Newsletter');
   }
 
   return response.json()
