@@ -1,7 +1,27 @@
 import { MapIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import { subscribe } from '../server/api'
+import { useState } from 'react'
 
 const Footer = () => {
+
+const [status, setStatus] = useState<'idle' | 'success' | 'error'>("idle")
+
+async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  event.preventDefault()
+  const formData = new FormData(event.currentTarget)
+  const email = formData.get('email') as string
+  
+  try {
+    await subscribe(email)
+    setStatus("success")
+  }
+  catch(err)
+  {
+    setStatus("error")
+  }
+}
+
   return (
     <div className="relative isolate overflow-hidden bg-black py-16 sm:py-24 lg:py-32">
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -11,7 +31,7 @@ const Footer = () => {
           <p className="mt-4 text-lg text-white">
           Sign up for our newsletter for the latest theories, lore, and updates!
           </p>
-          <div className="mt-6 flex max-w-md gap-x-4">
+          <form className="mt-6 flex max-w-md gap-x-4" onSubmit={handleSubmit}>
             <label htmlFor="email-address" className="sr-only">
               Email address
             </label>
@@ -28,9 +48,9 @@ const Footer = () => {
               type="submit"
               className="flex-none rounded-md bg-white border-2 border-white px-3.5 py-2.5 text-sm font-semibold text-black shadow-xs hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black cursor-pointer"
             >
-              Subscribe
+              {status === "idle" ? "Subscribe" : status === "success" ? "Subscribed" : "Already Subscribed"}
             </button>
-          </div>
+          </form>
         </div>
         <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
           <div className="flex flex-col items-start">

@@ -65,6 +65,21 @@ export async function getHouse(id: string) {
       return response.json();
 }
 
+export async function subscribe(email:string) {
+  
+  const response = await fetch("https://got-api-production.up.railway.app/api/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Already Subscribed');
+  }
+
+  return response.json()
+}
+
 export async function signup(email:string, username:string, password:string) {
 
   const response = await fetch("https://got-api-production.up.railway.app/api/auth/register", {
