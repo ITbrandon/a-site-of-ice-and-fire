@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 const Footer = () => {
 
-const [status, setStatus] = useState<'idle' | 'success' | 'error'>("idle")
+const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>("idle")
 
 async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   event.preventDefault()
@@ -13,6 +13,7 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   const email = formData.get('email') as string
   
   try {
+    setStatus("loading")
     await subscribe(email)
     setStatus("success")
   }
@@ -39,6 +40,7 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
               id="email-address"
               name="email"
               type="email"
+              disabled={status === "loading"}
               required
               placeholder="Enter your email"
               autoComplete="email"
@@ -46,9 +48,10 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
             />
             <button
               type="submit"
+              disabled={status === "loading"}
               className="flex-none rounded-md bg-white border-2 border-white px-3.5 py-2.5 text-sm font-semibold text-black shadow-xs hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black cursor-pointer"
             >
-              {status === "idle" ? "Subscribe" : status === "success" ? "Subscribed" : "Already Subscribed"}
+              {status === "idle" ? "Subscribe" : status === "success" ? "Subscribed" : status === "loading" ? "..." : "Already Subscribed"}
             </button>
           </form>
         </div>
